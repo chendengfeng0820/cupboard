@@ -28,4 +28,5 @@ public class RedisTest {
 		redisTemplate.opsForValue().set("test",user);
 		System.out.println(redisTemplate.opsForValue().get("test"));
 	}
+
 }

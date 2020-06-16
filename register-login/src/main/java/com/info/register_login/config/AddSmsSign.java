@@ -18,29 +18,35 @@ import com.info.register_login.pojo.User;
  **/
 public class AddSmsSign {
 
-	public static void sendSms(User user) {
-		String user_telephone = user.getUser_telephone();
-		DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4FdXFKaU53RaBJaq8naC", "LcQNfrwpgBjgoCis32GkGXIx3TImlv");
-		IAcsClient client = new DefaultAcsClient(profile);
-		CommonRequest request = new CommonRequest();
-		request.setMethod(MethodType.POST);
-		request.setDomain("dysmsapi.aliyuncs.com");
-		request.setVersion("2017-05-25");
-		request.setAction("SendSms");
-		request.putQueryParameter("RegionId", "cn-hangzhou");
-		request.putQueryParameter("PhoneNumbers", user_telephone);
-		request.putQueryParameter("SignName", "高级营养师");
-		request.putQueryParameter("TemplateCode", "SMS_183263164");
-		request.putQueryParameter("TemplateParam", "{\"code\" : \"1111\"}");
-		try {
-			CommonResponse response = client.getCommonResponse(request);
-			System.out.println(response.getData());
-		} catch (ServerException e) {
-			e.printStackTrace();
-		} catch (ClientException e) {
-			e.printStackTrace();
-		}
+
+	public static void main(String[] args) {
+
+
+
+
 	}
+//		DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4FdXFKaU53RaBJaq8naC", "LcQNfrwpgBjgoCis32GkGXIx3TImlv");
+//		IAcsClient client = new DefaultAcsClient(profile);
+//		CommonRequest request = new CommonRequest();
+//		request.setMethod(MethodType.POST);
+//		request.setDomain("dysmsapi.aliyuncs.com");
+//		request.setVersion("2017-05-25");
+//		request.setAction("SendSms");
+//		request.putQueryParameter("RegionId", "cn-hangzhou");
+//		request.putQueryParameter("PhoneNumbers", "17695754820");
+//		request.putQueryParameter("SignName", "付艳玲小仙女专属柜子");
+//		request.putQueryParameter("TemplateCode", "SMS_193230139");
+////		request.putQueryParameter("TemplateCode", "SMS_183263164");
+//		request.putQueryParameter("TemplateParam", "{\"code\" : \"Iloveyou\"}");
+//		try {
+//			CommonResponse response = client.getCommonResponse(request);
+//			System.out.println(response.getData());
+//		} catch (ServerException e) {
+//			e.printStackTrace();
+//		} catch (ClientException e) {
+//			e.printStackTrace();
+//		}
+//	}
 }
 
 

@@ -1,5 +1,6 @@
 package com.info.register_login.utils;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,6 +21,9 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class RedisUtil {
+
+	private static Logger logger = Logger.getLogger(CodeUtil.class);
+
 
 	@Autowired
 	@Qualifier("redisTemplate")
@@ -515,4 +519,17 @@ public class RedisUtil {
 			return 0;
 		}
 	}
+
+//	/**
+//	 *hash hset同时set多个field value
+//	 * @param key
+//	 * @param itemKey
+//	 * @param value
+//	 * @param itemKey1
+//	 * @param value1
+//	 * @return
+//	 */
+//	public boolean hset(String key, String itemKey, Object value,String itemKey1, Object value1){
+//			redisTemplate.opsForHash().putAll(key,);
+//	}
 }
