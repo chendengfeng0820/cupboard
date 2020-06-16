@@ -1,5 +1,6 @@
 package com.info.register_login.controller;
 
+import com.info.register_login.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Login {
 
 	@Autowired
-	private RedisTemplate redisTemplate;
+	private RedisUtil redisUtil;
 
 
 }

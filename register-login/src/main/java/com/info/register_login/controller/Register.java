@@ -1,6 +1,7 @@
 package com.info.register_login.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.info.register_login.utils.RedisUtil;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Register {
 
 	@Autowired
-	private RedisTemplate redisTemplate;
+	private RedisUtil redisUtil;
 
 
 	@RequestMapping("/")
