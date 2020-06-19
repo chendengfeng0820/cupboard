@@ -46,7 +46,7 @@ public interface IUserService {
 	 * @param user_telephone
 	 * @return
 	 */
-	public User findByTelephone(Integer user_telephone);
+	public User findByTelephone(String user_telephone);
 
 
 	/**

@@ -28,8 +28,6 @@ public class SptringbootTest {
 
 	@Test
 	public void test(){
-		User user=new User(1,"18790120405","陈登峰","123",new Date());
-		redisTemplate.opsForValue().set("name",user);
 //		System.out.println(redisTemplate.opsForValue().get("name"));
 //		System.out.println(redisUtil.get("name"));
 	}

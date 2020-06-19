@@ -23,10 +23,7 @@ public class RedisTest {
 
 	@Test
 	public void test(){
-		User user=new User(2,"18937663963","付艳玲","123",new Date());
 
-		redisTemplate.opsForValue().set("test",user);
-		System.out.println(redisTemplate.opsForValue().get("test"));
 	}
 
 }
