@@ -1,7 +1,7 @@
 package com.info.register_login.service.Impl;
 
+import com.info.pojo.User;
 import com.info.register_login.mapper.UserMapper;
-import com.info.register_login.pojo.User;
 import com.info.register_login.service.IUserService;
 import com.info.register_login.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;

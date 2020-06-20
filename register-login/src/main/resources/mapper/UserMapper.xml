@@ -5,17 +5,17 @@
 <mapper namespace="com.info.register_login.mapper.UserMapper" >
 
 	<!--根据user_id查询用户-->
-	<select id="findById" resultType="com.info.register_login.pojo.User">
+	<select id="findById" resultType="com.info.pojo.User">
 		select * from user where user_id =#{user_id}
 	</select>
 
 	<!--根据user_telephone查询用户-->
-	<select id="findByTelephone" resultType="com.info.register_login.pojo.User">
+	<select id="findByTelephone" resultType="com.info.pojo.User">
 		select * from user where user_telephone =#{user_telephone}
 	</select>
 
 	<!--查询所有用户-->
-	<select id="findAll" resultType="com.info.register_login.pojo.User">
+	<select id="findAll" resultType="com.info.pojo.User">
 		select * from user
 	</select>
 
@@ -41,7 +41,7 @@
 	</update>
 
 	<!--查找用户的详细信息-->
-	<select id="showInformation" resultType="com.info.register_login.pojo.User">
+	<select id="showInformation" resultType="com.info.pojo.User">
 		select * from user where user_telephone=#{user_telephone}
 	</select>
 </mapper>

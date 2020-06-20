@@ -1,7 +1,6 @@
 package com.info.register_login.service;
 
-import com.info.register_login.pojo.User;
-import org.springframework.stereotype.Service;
+import com.info.pojo.User;
 
 import java.util.List;
 

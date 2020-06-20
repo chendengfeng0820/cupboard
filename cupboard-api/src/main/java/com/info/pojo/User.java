@@ -1,4 +1,4 @@
-package com.info.register_login.pojo;
+package com.info.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,14 +10,14 @@ import java.util.Date;
 
 /**
  * @ClassName User
- * @Description TODO
+ * @Description pojo
  * @author: cdf
  * @Date: 2020-06-12 15:41
  **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Accessors(chain = true)
+@Accessors(chain = true)  //链式写法 .set .set
 public class User implements Serializable {
 
 	private int user_id;

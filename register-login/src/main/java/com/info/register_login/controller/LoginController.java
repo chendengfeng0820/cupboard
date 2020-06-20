@@ -2,7 +2,7 @@ package com.info.register_login.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.info.register_login.pojo.User;
+import com.info.pojo.User;
 import com.info.register_login.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

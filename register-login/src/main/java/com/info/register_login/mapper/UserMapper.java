@@ -1,6 +1,6 @@
 package com.info.register_login.mapper;
 
-import com.info.register_login.pojo.User;
+import com.info.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

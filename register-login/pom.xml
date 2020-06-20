@@ -15,7 +15,7 @@
     <artifactId>register_login</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>register_login</name>
-    <description>--登录--注册--模块</description>
+    <description>--登录--注册</description>
 
 
     <properties>
@@ -23,6 +23,12 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.asia</groupId>
+            <artifactId>cupboard-api</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency>
