@@ -3,6 +3,8 @@ package com.info.preserve.utils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -516,6 +518,43 @@ public class RedisUtil {
 			return 0;
 		}
 	}
+
+	/**
+	 * 切换数据库
+	 * @param database
+	 */
+	public void select(int database){
+	    try{
+	        if (database >= 0 && database <= 15){
+                LettuceConnectionFactory connectionFactory = (LettuceConnectionFactory) redisTemplate.getConnectionFactory();
+                connectionFactory.setDatabase(database);
+            }else{
+                throw new RuntimeException("数据库必须大于0小于15");
+            }
+        }catch (Exception e){
+	        e.printStackTrace();
+        }
+    }
+
+    /**
+     * 查询所有的key
+     * @return
+     */
+    public Set<String> keys(){
+	    //获取所有的key
+        Set<String> keys = redisTemplate.keys("*");
+        return keys;
+    }
+
+
+    /**
+     * key的过期时间
+     * @param key
+     */
+    public Long ttl(String key){
+        Long expire = redisTemplate.opsForValue().getOperations().getExpire(key);
+        return expire;
+    }
 
 //	/**
 //	 *hash hset同时set多个field value
