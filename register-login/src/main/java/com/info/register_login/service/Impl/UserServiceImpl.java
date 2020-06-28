@@ -42,7 +42,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void deleteUserById(Integer user_id) {
+    public void deleteUserById(Long user_id) {
 
         userMapper.deleteUserById(user_id);
     }
@@ -83,7 +83,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User findById(Integer user_id) {
+    public User findById(Long user_id) {
 
         return userMapper.findById(user_id);
     }
@@ -95,7 +95,7 @@ public class UserServiceImpl implements IUserService {
         if (redisUtil.hashKey(user_telephone)) {
             Map<Object, Object> hmget = redisUtil.hmget(user_telephone);
             User user = new User();
-            user.setUser_id((int) hmget.get("user_id"))
+            user.setUser_id((Long) hmget.get("user_id"))
                     .setUser_telephone((String) hmget.get("user_telephone"))
                     .setUser_password((String) hmget.get("user_password"))
                     .setUser_faceinfo((String) hmget.get("user_faceinfo"))
@@ -119,7 +119,7 @@ public class UserServiceImpl implements IUserService {
         if (redisUtil.hashKey(user_telephone)) {
             Map<Object, Object> hmget = redisUtil.hmget(user_telephone);
             User user = new User();
-            user.setUser_id((int) hmget.get("user_id"))
+            user.setUser_id((Long) hmget.get("user_id"))
                     .setUser_telephone((String) hmget.get("user_telephone"))
                     .setUser_password((String) hmget.get("user_password"))
                     .setUser_faceinfo((String) hmget.get("user_faceinfo"))

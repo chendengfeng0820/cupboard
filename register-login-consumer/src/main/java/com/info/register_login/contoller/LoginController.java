@@ -1,15 +1,12 @@
 package com.info.register_login.contoller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.info.pojo.User;
-import com.info.pojo.service.ILoginService;
+import com.info.pojo.service.register_login.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 /**
  * @ClassName Login

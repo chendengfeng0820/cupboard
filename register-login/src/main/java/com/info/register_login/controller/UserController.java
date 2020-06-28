@@ -33,7 +33,7 @@ public class UserController {
 	@RequestMapping("/findById/{id1}")
 	public String findByNumber(@RequestBody JSONObject jsonObject,@PathVariable("id1") Integer id1) {
 		User user = JSON.parseObject(jsonObject.toString(), User.class);
-		int id = user.getUser_id();
+		Long id = user.getUser_id();
 		User user1 = userService.findById(id);
 		String Json = JSON.toJSONString(user1);
 		return Json;
@@ -56,7 +56,7 @@ public class UserController {
 	@RequestMapping("/deleteUserById")
 	public String deleteUserById(@RequestBody JSONObject jsonObject) {
 		User user = JSON.parseObject(jsonObject.toString(), User.class);
-		int id = user.getUser_id();
+		Long id = user.getUser_id();
 		userService.deleteUserById(id);
 		return "t";
 	}

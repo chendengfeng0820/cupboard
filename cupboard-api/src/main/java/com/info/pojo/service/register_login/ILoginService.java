@@ -1,4 +1,4 @@
-package com.info.pojo.service;
+package com.info.pojo.service.register_login;
 
 
 import com.alibaba.fastjson.JSONObject;
@@ -11,9 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient (value = "REGISTER-LOGIN")
 public interface ILoginService {
 
+    /**
+     * 查找全部
+     * @return
+     */
     @RequestMapping("/findAll")
     public String getAll();
 
+    /**
+     * 登录
+     * @param jsonObject
+     * @return
+     */
     @RequestMapping("/login")
     public String login(@RequestBody JSONObject jsonObject);
 }

@@ -20,7 +20,7 @@ import java.util.Date;
 @Accessors(chain = true)  //链式写法 .set .set
 public class User implements Serializable {
 
-	private int user_id;
+	private Long user_id;
 	private String user_telephone;
 	private String user_password;
 	private String user_username;

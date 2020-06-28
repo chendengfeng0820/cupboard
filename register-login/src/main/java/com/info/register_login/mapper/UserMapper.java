@@ -20,7 +20,7 @@ public interface UserMapper {
 	 * 根据id删除用户
 	 * @param user_id
 	 */
-	void deleteUserById(Integer user_id);
+	void deleteUserById(Long user_id);
 
 
 	/**
@@ -41,7 +41,7 @@ public interface UserMapper {
 	 * @param user_id
 	 * @return
 	 */
-	public User findById(Integer user_id);
+	public User findById(Long user_id);
 
 
 	/**

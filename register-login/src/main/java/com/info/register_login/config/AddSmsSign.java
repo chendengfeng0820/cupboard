@@ -21,8 +21,6 @@ public class AddSmsSign {
 	public static void main(String[] args) {
 
 
-
-
 	}
 //		DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4FdXFKaU53RaBJaq8naC", "LcQNfrwpgBjgoCis32GkGXIx3TImlv");
 //		IAcsClient client = new DefaultAcsClient(profile);
