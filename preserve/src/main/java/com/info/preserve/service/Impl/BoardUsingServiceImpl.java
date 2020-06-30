@@ -22,7 +22,7 @@ public class BoardUsingServiceImpl implements BoardUsingService {
 
 
     @Override
-    public List<Board> available() {
+    public List available() {
         return boardUsingMapper.available();
     }
 }

@@ -22,4 +22,5 @@ public class Board {
     private int using;  //是否正在使用
 
     private Location location ;
+
 }

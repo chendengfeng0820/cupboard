@@ -4,8 +4,10 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -27,6 +29,7 @@ public class RedisUtil {
 	@Autowired
 	@Qualifier("redisTemplate")
 	private RedisTemplate<String, Object> redisTemplate;
+
 
 	/**
 	 * 指定缓存失效时间
@@ -519,22 +522,45 @@ public class RedisUtil {
 		}
 	}
 
+//	/**
+//	 * 切换数据库
+//	 * @param index
+//	 */
+//	public int select(int index){
+//	    try{
+//	        if (index >= 0 && index <= 15){
+//                LettuceConnectionFactory connectionFactory = (LettuceConnectionFactory) redisTemplate.getConnectionFactory();
+//                connectionFactory.setDatabase(index);
+//				return connectionFactory.getDatabase();
+//            }else{
+//                throw new RuntimeException("数据库必须大于0小于15");
+//            }
+//        }catch (Exception e){
+//	        e.printStackTrace();
+//        }
+//        return 0;
+//    }
+
+
+
 	/**
-	 * 切换数据库
-	 * @param database
+	 * 设置数据库索引
+	 *
+	 * @param dbIndex
 	 */
-	public void select(int database){
-	    try{
-	        if (database >= 0 && database <= 15){
-                LettuceConnectionFactory connectionFactory = (LettuceConnectionFactory) redisTemplate.getConnectionFactory();
-                connectionFactory.setDatabase(database);
-            }else{
-                throw new RuntimeException("数据库必须大于0小于15");
-            }
-        }catch (Exception e){
-	        e.printStackTrace();
-        }
+	public void select(Integer dbIndex) {
+		if (dbIndex == null || dbIndex > 15 || dbIndex < 0) {
+			dbIndex = 0;
+		}
+		LettuceConnectionFactory jedisConnectionFactory = (LettuceConnectionFactory) redisTemplate
+				.getConnectionFactory();
+		jedisConnectionFactory.setDatabase(dbIndex);
+		redisTemplate.setConnectionFactory(jedisConnectionFactory);
+		jedisConnectionFactory.afterPropertiesSet();
+//        jedisConnectionFactory.resetConnection();
+
     }
+
 
     /**
      * 查询所有的key

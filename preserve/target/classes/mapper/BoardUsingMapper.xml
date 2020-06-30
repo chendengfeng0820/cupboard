@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.info.preserve.mapper.BoardUsingMapper">
+
+    <select id="available" resultType="com.info.pojo.Board" >
+        select board_id from boardlocation where `using`='0'
+    </select>
+
+</mapper>

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface BoardUsingService {
 
-    public List<Board> available();
+    public List available();
 }

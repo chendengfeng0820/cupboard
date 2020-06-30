@@ -6,19 +6,24 @@ import com.info.pojo.Board;
 import com.info.pojo.User;
 import com.info.preserve.service.Impl.BoardUsingServiceImpl;
 import com.info.preserve.utils.RedisUtil;
+import com.info.preserve.utils.TimeShift;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName BoardUsingController
- * @Description 柜子的可以情况
+ * @Description 柜子的使用情况(预订)
  * @author: cdf
  * @Date: 2020-06-28 23:36
  **/
@@ -29,17 +34,38 @@ public class BoardUsingController {
     private RedisUtil redisUtil ;
 
     @Autowired
+    private TimeShift timeShift;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
     private BoardUsingServiceImpl boardUsingService;
 
     @RequestMapping("/boardusing")
-    public String boardUsing(@RequestBody JSONObject jsonObject){
-        Board board = JSON.parseObject(jsonObject.toString(), Board.class);
-        Long board_id=board.getBoard_id();
+    public String boardUsing(){
+//        Board board = JSON.parseObject(jsonObject.toString(), Board.class);
+//        Long board_id=board.getBoard_id();
+
+        //数据库中查到所有没有存放东西的柜子
         List<Board> availableList = boardUsingService.available();
+        ArrayList<String> list = new ArrayList<>();
+        for (Board board:availableList) {
+            list.add(String.valueOf(board.getBoard_id()));
+        }
+        System.out.println(list);
+//        System.out.println(availableList.stream().map(Board::getBoard_id).collect(Collectors.toList()));
         redisUtil.select(1);
         Set<String> keys = redisUtil.keys();
-        availableList.remove(keys);
-        String result = JSON.toJSONString(availableList);
+
+        //set转为list
+//        ArrayList<String> keyslist = new ArrayList<>(keys);
+        System.out.println(keys);
+
+        //list与keylist差集
+        list.removeAll(keys);
+        System.out.println(list);
+        String result = JSON.toJSONString(list);
         return result;
     }
 
@@ -51,8 +77,13 @@ public class BoardUsingController {
         //redis   1 数据库
         redisUtil.select(1);
         //预约存进redis，设置过期时间2小时
-        redisUtil.set(String.valueOf(board_id),0, TimeUnit.HOURS.toHours(2));
-        return "subscribe success";
+        redisUtil.set(String.valueOf(board_id),0,TimeUnit.HOURS.toSeconds(2));
+        if (redisUtil.hashKey(String.valueOf(board_id))){
+            return "subscribe success";
+        }else {
+            return "subscribe fail";
+        }
+
     }
 
     @RequestMapping("/ttl")
@@ -60,6 +91,7 @@ public class BoardUsingController {
         Board board = JSON.parseObject(jsonObject.toString(), Board.class);
         Long board_id=board.getBoard_id();
         Long ttl = redisUtil.ttl(String.valueOf(board_id));
-        return JSON.toJSONString(ttl);
+        return JSON.toJSONString(timeShift.conversion(ttl));
     }
+
 }
