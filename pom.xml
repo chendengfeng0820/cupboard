@@ -11,6 +11,7 @@
         <module>eureka-7003</module>
         <module>cupboard-api</module>
         <module>register-login</module>
+        <module>preserve-consumer</module>
         <module>register-login-consumer</module>
     </modules>
 

@@ -37,9 +37,6 @@ public class BoardUsingController {
     private TimeShift timeShift;
 
     @Autowired
-    private RedisTemplate redisTemplate;
-
-    @Autowired
     private BoardUsingServiceImpl boardUsingService;
 
     @RequestMapping("/boardusing")
