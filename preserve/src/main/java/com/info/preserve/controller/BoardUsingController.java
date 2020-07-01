@@ -41,17 +41,15 @@ public class BoardUsingController {
 
     @RequestMapping("/boardusing")
     public String boardUsing(){
-//        Board board = JSON.parseObject(jsonObject.toString(), Board.class);
-//        Long board_id=board.getBoard_id();
-
         //数据库中查到所有没有存放东西的柜子
+
         List<Board> availableList = boardUsingService.available();
         ArrayList<String> list = new ArrayList<>();
         for (Board board:availableList) {
             list.add(String.valueOf(board.getBoard_id()));
         }
         System.out.println(list);
-//        System.out.println(availableList.stream().map(Board::getBoard_id).collect(Collectors.toList()));
+
         redisUtil.select(1);
         Set<String> keys = redisUtil.keys();
 

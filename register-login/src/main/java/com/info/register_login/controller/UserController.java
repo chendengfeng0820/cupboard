@@ -5,10 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.info.pojo.User;
 import com.info.register_login.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,13 +23,14 @@ public class UserController {
 	@RequestMapping("/findAll")
 	public String findAll() {
 		List<User> users = userService.findAll();
-		String Json = JSON.toJSONString(users);
-		return Json;
-//		return userService.findAll();
+		System.out.println(users);
+		String json = JSON.toJSONString(users);
+		return json;
 	}
 
-	@RequestMapping("/findById/{id1}")
-	public String findByNumber(@RequestBody JSONObject jsonObject,@PathVariable("id1") Integer id1) {
+
+	@RequestMapping("/findById")
+	public String findByNumber(@RequestBody JSONObject jsonObject) {
 		User user = JSON.parseObject(jsonObject.toString(), User.class);
 		Long id = user.getUser_id();
 		User user1 = userService.findById(id);

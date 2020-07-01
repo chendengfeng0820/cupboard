@@ -8,6 +8,6 @@ import java.util.List;
 @Mapper
 public interface BoardUsingMapper {
 
-    public List available();
+    public List<Board> available();
 
 }

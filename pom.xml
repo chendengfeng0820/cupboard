@@ -6,6 +6,7 @@
 
     <modules>
         <module>preserve</module>
+        <module>time-cost</module>
         <module>eureka-7001</module>
         <module>eureka-7002</module>
         <module>eureka-7003</module>
