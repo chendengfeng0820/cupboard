@@ -2,7 +2,6 @@ package com.info.register_login.utils;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.log4j.Logger;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;

@@ -3,9 +3,8 @@ package com.info.register_login.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.info.pojo.User;
-import com.info.register_login.service.IUserService;
+import com.info.register_login.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
 public class UserController {
 
 	@Autowired
-	private IUserService userService;
+	private UserService userService;
 
 	@RequestMapping("/findAll")
 	public String findAll() {
@@ -33,7 +32,7 @@ public class UserController {
 	public String findByNumber(@RequestBody JSONObject jsonObject) {
 		User user = JSON.parseObject(jsonObject.toString(), User.class);
 		Long id = user.getUser_id();
-		User user1 = userService.findById(id);
+		User user1 = userService.findByUserId(id);
 		String Json = JSON.toJSONString(user1);
 		return Json;
 	}
@@ -56,17 +55,10 @@ public class UserController {
 	public String deleteUserById(@RequestBody JSONObject jsonObject) {
 		User user = JSON.parseObject(jsonObject.toString(), User.class);
 		Long id = user.getUser_id();
-		userService.deleteUserById(id);
+		userService.deleteUserByUserId(id);
 		return "t";
 	}
 
-	@RequestMapping("/deleteUserByTelephone")
-	public String deleteUserByTelephone(@RequestBody JSONObject jsonObject) {
-		User user = JSON.parseObject(jsonObject.toString(), User.class);
-		String telephone = user.getUser_telephone();
-		userService.deleteUserByTelephone(telephone);
-		return "t";
-	}
 
 	@RequestMapping("/updateUser")
 	public String updateUser(@RequestBody JSONObject jsonObject) {

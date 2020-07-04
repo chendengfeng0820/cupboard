@@ -7,4 +7,8 @@
         select board_id from boardlocation where `using`='0'
     </select>
 
+    <select id="getlocation" resultType="String">
+        select location from boardlocation where board_id=#{board_id}
+    </select>
+
 </mapper>

@@ -1,7 +1,7 @@
 package com.info.register_login.contoller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.info.pojo.service.register_login.ILoginService;
+import com.info.service.register_login.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

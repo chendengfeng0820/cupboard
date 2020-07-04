@@ -7,4 +7,7 @@ import java.util.List;
 public interface BoardUsingService {
 
     public List available();
+
+    public String getlocation(Long board_id);
+
 }

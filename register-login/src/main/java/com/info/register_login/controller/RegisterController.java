@@ -7,7 +7,7 @@ import com.google.gson.JsonObject;
 import com.info.pojo.User;
 import com.info.register_login.config.SendSmsConfig;
 import com.info.register_login.utils.CodeUtil;
-import com.info.register_login.utils.RedisUtil;
+import com.info.utils.RedisUtil;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

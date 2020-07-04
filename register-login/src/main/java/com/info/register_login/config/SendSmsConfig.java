@@ -10,8 +10,7 @@ import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.info.register_login.utils.CodeUtil;
-import com.info.register_login.utils.RedisUtil;
-import org.apache.log4j.Logger;
+import com.info.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
@@ -24,8 +23,6 @@ import java.util.concurrent.TimeUnit;
  **/
 @Component
 public class SendSmsConfig {
-
-	private static Logger logger = Logger.getLogger(SendSmsConfig.class);
 
 	@Autowired
 	private RedisUtil redisUtil;
@@ -42,7 +39,6 @@ public class SendSmsConfig {
 				redisUtil.hset(telephonenumber,"code",code);
 				redisUtil.haIncr(telephonenumber, "times", 1);
 			} else if(times==3){
-				logger.warn("key为："+telephonenumber+"用户连续超过三次");
 				redisUtil.expire(telephonenumber,TimeUnit.HOURS.toHours(2));
 				return JSON.toJSONString("对不起，您已连续发送超过三次，请五分钟后再试");
 			}

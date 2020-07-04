@@ -3,11 +3,12 @@ package com.info.register_login.mapper;
 import com.info.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
-@Component
+@Repository
 public interface UserMapper {
 	/**
 	 * 增加用户
@@ -20,13 +21,7 @@ public interface UserMapper {
 	 * 根据id删除用户
 	 * @param user_id
 	 */
-	void deleteUserById(Long user_id);
-
-
-	/**
-	 * 根据手机号删除用户
-	 */
-	void deleteUserByTelephone(String user_telephone);
+	void deleteUserByUserId(Long user_id);
 
 
 	/**
@@ -41,7 +36,7 @@ public interface UserMapper {
 	 * @param user_id
 	 * @return
 	 */
-	public User findById(Long user_id);
+	public User findByUserId(Long user_id);
 
 
 	/**
@@ -57,10 +52,5 @@ public interface UserMapper {
 	 * @return
 	 */
 	List<User> findAll();
-
-	/**
-	 * 显示用户详细信息
-	 */
-	User showInformation(String user_telephone);
 
 }

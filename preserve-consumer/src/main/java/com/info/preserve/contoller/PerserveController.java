@@ -1,8 +1,7 @@
 package com.info.preserve.contoller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.info.pojo.service.preserve.BoardUsingService;
-import com.info.pojo.service.register_login.ILoginService;
+import com.info.service.preserve.BoardUsingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

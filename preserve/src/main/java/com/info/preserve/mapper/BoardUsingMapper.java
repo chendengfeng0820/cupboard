@@ -10,4 +10,6 @@ public interface BoardUsingMapper {
 
     public List<Board> available();
 
+    public String getlocation(Long board_id);
+
 }

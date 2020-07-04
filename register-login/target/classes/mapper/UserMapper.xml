@@ -5,7 +5,7 @@
 <mapper namespace="com.info.register_login.mapper.UserMapper" >
 
 	<!--根据user_id查询用户-->
-	<select id="findById" resultType="com.info.pojo.User">
+	<select id="findByUserId" resultType="com.info.pojo.User">
 		select * from user where user_id =#{user_id}
 	</select>
 
@@ -25,7 +25,7 @@
 	</insert>
 
 	<!--根据user_id删除用户-->
-	<delete id="deleteUserById" >
+	<delete id="deleteUserByUserId" >
 		delete from user where user_id=#{user_id}
 	</delete>
 

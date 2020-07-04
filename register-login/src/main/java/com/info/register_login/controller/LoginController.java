@@ -3,7 +3,7 @@ package com.info.register_login.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.info.pojo.User;
-import com.info.register_login.utils.RedisUtil;
+import com.info.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,19 +23,18 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	public String login(@RequestBody JSONObject jsonObject){
-		String s = null;
 		User user = JSON.parseObject(jsonObject.toString(), User.class);
 		String telephone = user.getUser_telephone();
 		String password = user.getUser_password();
 		if (redisUtil.hashKey(telephone)){
 			String passwordcode=String.valueOf(redisUtil.getHash(telephone,"password")) ;
 			if (password.equals(passwordcode)){
-				return s = "t" ;
+				return "t" ;
 			}else {
-				return s = "对不起，密码错误" ;
+				return "对不起，密码错误" ;
 			}
 		}else {
-			return s = "对不起，不存在此用户" ;
+			return "对不起，不存在此用户" ;
 		}
 	}
 }

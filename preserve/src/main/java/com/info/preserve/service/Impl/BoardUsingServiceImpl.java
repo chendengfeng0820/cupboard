@@ -25,4 +25,9 @@ public class BoardUsingServiceImpl implements BoardUsingService {
     public List available() {
         return boardUsingMapper.available();
     }
+
+    @Override
+    public String getlocation(Long board_id) {
+        return boardUsingMapper.getlocation(board_id);
+    }
 }
