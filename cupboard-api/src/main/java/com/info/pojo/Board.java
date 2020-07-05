@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 
 /**
  * @ClassName Board
- * @Description TODO
+ * @Description 储物柜
  * @author: cdf
  * @Date: 2020-06-28 23:15
  **/

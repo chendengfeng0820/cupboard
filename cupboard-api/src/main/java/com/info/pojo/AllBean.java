@@ -18,4 +18,7 @@ public class AllBean {
     private Long order_cost_id;
     private Long user_order_id;
     private Long user_table_id;
+    private Long courier_order_id;
+    private Long courier_user_id;
+
 }

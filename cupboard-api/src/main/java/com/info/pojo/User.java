@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @ClassName User
- * @Description pojo
+ * @Description 用户
  * @author: cdf
  * @Date: 2020-06-12 15:41
  **/
