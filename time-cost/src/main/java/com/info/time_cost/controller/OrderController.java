@@ -6,6 +6,7 @@ import com.info.pojo.Board;
 import com.info.pojo.Cost;
 import com.info.pojo.Order;
 import com.info.pojo.User;
+import com.info.service.preserve.BoardUsingService;
 import com.info.time_cost.service.CostService;
 import com.info.time_cost.service.UserOrderService;
 import com.info.utils.RedisUtil;
@@ -32,10 +33,14 @@ public class OrderController {
     private CostService costService;
 
     @Autowired
+    private BoardUsingService boardUsingService;
+
+    @Autowired
     private UserOrderService userOrderService;
 
     @RequestMapping("/order")
     public String order(@RequestBody JSONObject jsonObject) {
+        System.out.println(boardUsingService.boardUsing());
         Board board = JSON.parseObject(jsonObject.toString(), Board.class);
         User user = JSON.parseObject(jsonObject.toString(), User.class);
         Long board_id = board.getBoard_id();

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableEurekaClient
 @ComponentScan(basePackages = {"com.info.*"})
+@EnableFeignClients({"com.info.*"})
 public class TimeCostApplication {
 
     public static void main(String[] args) {
