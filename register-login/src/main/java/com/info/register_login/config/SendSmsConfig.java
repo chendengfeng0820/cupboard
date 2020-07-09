@@ -47,7 +47,7 @@ public class SendSmsConfig {
 			redisUtil.hset(telephonenumber, "times", 0);
 		}
 		CommonResponse response=null;
-		DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4FdXFKaU53RaBJaq8naC", "LcQNfrwpgBjgoCis32GkGXIx3TImlv");
+		DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "xxx", "xxxxxx");
 		IAcsClient client = new DefaultAcsClient(profile);
 		CommonRequest request = new CommonRequest();
 		request.setMethod(MethodType.POST);

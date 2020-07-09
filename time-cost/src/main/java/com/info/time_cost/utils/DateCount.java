@@ -16,9 +16,10 @@ public class DateCount {
 
 
         String timeStr1=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        String timeStr2=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+        String timeStr2=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         System.out.println("当前时间为:"+timeStr1);
         System.out.println("当前时间为:"+timeStr2);
+        System.out.println();
 
 
     }
