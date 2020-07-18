@@ -2,5 +2,9 @@ package com.info.service;
 
 public interface SendService {
 
-    void sendMessage(String message);
+    public void sendMessage(String message);
+
+    public void sendFanoutMessage(String message);
+
+    public void sendtopicMessage(String message);
 }

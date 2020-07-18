@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.info.express.mapper.PostMapper">
+
+    <insert id="insertPackage" keyColumn="package_id" keyProperty="package_id" useGeneratedKeys="true">
+        insert into package (package_from, package_to, package_createtime) values (
+        #{package_from},#{package_to},#{package_createtime})
+    </insert>
+
+    <select id="getUserInfo" resultType="com.info.pojo.User">
+        select user_username ,user_telephone from user where user_id =#{user_id};
+    </select>
+
+    <select id="getBoardInfo" resultType="com.info.pojo.Board">
+        select location from boardlocation where board_id=#{board_id}
+    </select>
+
+    <select id="getCourierInfo" resultType="com.info.pojo.Courier">
+        select *  from courier where courier_id =#{courier_id}
+    </select>
+
+    <insert id="finishPackage" >
+        insert into package (package_finishtime) values (#{finishtime}) where packagefinishtime =#{packagefinishtime}
+    </insert>
+
+    <insert id="insertUser_Package" useGeneratedKeys="false" keyProperty="user_package_id" keyColumn="user_package_id">
+        insert into user_package (user_id, package_id) values (#{user_id},#{package_id})
+    </insert>
+
+    <insert id="insertCourier_Package" useGeneratedKeys="false" keyColumn="courier_package_id" keyProperty="courier_package_id" >
+        insert into courier_package (courier_id, package_id) values (#{courier_id},#{courier_id})
+    </insert>
+
+    <insert id="insertCourier_Board" useGeneratedKeys="false" keyProperty="courier_board_id" keyColumn="courier_board_id">
+        insert into courier_board (courier_id, board_id) values (#{courier_id},#{board_id})
+    </insert>
+</mapper>

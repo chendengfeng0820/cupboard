@@ -2,7 +2,6 @@ package com.info.service.Impl;
 
 import com.info.service.SendService;
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +27,15 @@ public class SendServiceImpl implements SendService {
          */
         amqpTemplate.convertAndSend("bootDirectExchange","bootDirectRoutingKey",message);
     }
+
+    @Override
+    public void sendFanoutMessage(String message) {
+        amqpTemplate.convertAndSend("fanoutExchange","",message);
+    }
+
+    @Override
+    public void sendtopicMessage(String message) {
+        amqpTemplate.convertAndSend("topicExchange","aa",message);
+    }
+
 }

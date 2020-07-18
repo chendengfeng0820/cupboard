@@ -8,7 +8,8 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.asia</groupId>
+
+    <groupId>com.info</groupId>
     <artifactId>cupboard-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>cupboard-api</name>

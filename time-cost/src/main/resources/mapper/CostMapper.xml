@@ -24,7 +24,5 @@
         insert into order_cost (order_id, cost_id) values (#{order_id},#{cost_id})
     </insert>
 
-    <insert id="" >
 
-    </insert>
 </mapper>

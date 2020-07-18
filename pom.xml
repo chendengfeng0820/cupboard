@@ -5,13 +5,16 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>express</module>
         <module>preserve</module>
         <module>time-cost</module>
         <module>eureka-7001</module>
         <module>eureka-7002</module>
         <module>eureka-7003</module>
         <module>cupboard-api</module>
+        <module>rabbitmq-send</module>
         <module>register-login</module>
+        <module>rabbitmq-receive</module>
         <module>preserve-consumer</module>
         <module>register-login-consumer</module>
     </modules>
@@ -43,7 +46,6 @@
         <openfigin.version>2.2.0.RELEASE</openfigin.version>
         <aliyun.message.version>4.0.3</aliyun.message.version>
         <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
-        <springboot-start.version>2.1.3</springboot-start.version>
         <eureka.client.version>2.2.2.RELEASE</eureka.client.version>
         <eureka.server.version>2.2.1.RELEASE</eureka.server.version>
         <springcloud.stater.version>2.2.3.RELEASE</springcloud.stater.version>
@@ -91,13 +93,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!--mybatis依赖-->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${springboot-start.version}</version>
-        </dependency>
-
         <!--spring cloud-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -130,12 +125,13 @@
             <version>${mysql.version}</version>
         </dependency>
 
-        <!--mybatis-->
+        <!--mybatis依赖-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis.version}</version>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
         <dependency>

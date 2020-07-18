@@ -1,9 +1,6 @@
 package com.info.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,6 +13,7 @@ public class RabbitMQConfig {
     public DirectExchange directExchange(){
         return new DirectExchange("bootDirectExchange");
     }
+
     //配置一个队列
     @Bean
     public Queue directQueue(){
@@ -36,4 +34,15 @@ public class RabbitMQConfig {
         // 参数 3绑定时的RoutingKey
         return BindingBuilder.bind(directQueue).to(directExchange).with("bootDirectRoutingKey");
     }
+
+    @Bean
+    public FanoutExchange fanoutExchange(){
+        return new FanoutExchange("fanoutExchange");
+    }
+
+    @Bean
+    public TopicExchange topicExchange(){
+        return new TopicExchange("topicExchange");
+    }
+
 }

@@ -24,7 +24,7 @@
 
         <!--cupboard-api-->
         <dependency>
-            <groupId>com.asia</groupId>
+            <groupId>com.info</groupId>
             <artifactId>cupboard-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

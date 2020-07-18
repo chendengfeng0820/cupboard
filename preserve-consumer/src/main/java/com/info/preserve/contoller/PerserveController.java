@@ -18,10 +18,8 @@ import org.springframework.web.client.RestTemplate;
 public class PerserveController {
 
     @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
     private BoardUsingService boardUsingService;
+
 
     @RequestMapping("/boardusing")
     public String boardUsing(){

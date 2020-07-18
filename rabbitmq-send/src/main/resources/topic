@@ -1,0 +1,8 @@
+direct 交换机
+消息发送过来 带着message 和  routingkey
+
+ 把这个消息发到交换机
+ 带着message 和 routingkey
+
+ 然后会绑定看那个队列的routingkey是跟这个数据的是一致的 就会发送到这个交换机
+ 然后消费者消费
