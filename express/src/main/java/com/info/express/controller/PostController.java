@@ -49,6 +49,7 @@ public class PostController {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("用户名",userInfo.getUser_username());
         hashMap.put("用户手机号",userInfo.getUser_telephone());
+        hashMap.put("快递包裹订单编号",package_id);
         hashMap.put("柜子位置",boardInfo.getLocation());
         hashMap.put("柜子编号",board_id);
         hashMap.put("发到地址",packageInfo.getPackage_to());
