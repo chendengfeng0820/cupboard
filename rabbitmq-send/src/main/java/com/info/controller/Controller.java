@@ -37,17 +37,21 @@ public class Controller {
         sendService.sendMessage(result);
         return "ok";
     }
+
+
     @RequestMapping("/send1")
     public String sendMessage() {
         sendService.sendMessage("你好");
         return "ok";
     }
 
+
     @RequestMapping("/sendfanout")
     public String sendFanoutMessage() {
         sendService.sendFanoutMessage("你好");
         return "ok";
     }
+
 
     @RequestMapping("/sendtopic")
     public String sendTopicMessage() {
