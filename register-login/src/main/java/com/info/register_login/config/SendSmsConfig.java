@@ -11,6 +11,7 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.info.register_login.utils.CodeUtil;
 import com.info.utils.RedisUtil;
+import com.info.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
@@ -29,6 +30,9 @@ public class SendSmsConfig {
 
 	@Autowired
 	private CodeUtil codeUtil;
+
+	@Autowired
+	private SnowFlake snowFlake;
 
 	public String sendSms(String telephonenumber) {
 		String code = codeUtil.generateCode();

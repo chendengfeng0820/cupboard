@@ -23,7 +23,7 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	public String login(@RequestBody JSONObject jsonObject){
-		User user = JSON.parseObject(jsonObject.toString(), User.class);
+        User user = JSON.parseObject(jsonObject.toString(), User.class);
 		String telephone = user.getUser_telephone();
 		String password = user.getUser_password();
 		if (redisUtil.hashKey(telephone)){
