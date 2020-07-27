@@ -35,21 +35,33 @@ public class SendSmsConfig {
 	private SnowFlake snowFlake;
 
 	public String sendSms(String telephonenumber) {
+
+		//获取验证码code
 		String code = codeUtil.generateCode();
-		System.out.println(code);
+        System.out.println(code);
+
+        //redis手机号发送验证码次数限制
 		if (redisUtil.hashKey(telephonenumber)) {
 			int times = (int) redisUtil.getHash(telephonenumber, "times");
 			if (times < 3) {
+				//覆盖上一次的验证码
 				redisUtil.hset(telephonenumber,"code",code);
+				//此手机号验证码发送次数 incrby +1
 				redisUtil.haIncr(telephonenumber, "times", 1);
 			} else if(times==3){
+				//验证码发送次数等于三次，2小时时间限制
 				redisUtil.expire(telephonenumber,TimeUnit.HOURS.toHours(2));
 				return JSON.toJSONString("对不起，您已连续发送超过三次，请五分钟后再试");
 			}
 		}else {
+			//正常，设置验证码的过期时间
 			redisUtil.hset(telephonenumber, "code", code, TimeUnit.SECONDS.toSeconds(300));
 			redisUtil.hset(telephonenumber, "times", 0);
 		}
+
+		/**
+		 * 阿里云发送短信
+		 */
 		CommonResponse response=null;
 		DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "xxx", "xxxxxx");
 		IAcsClient client = new DefaultAcsClient(profile);
