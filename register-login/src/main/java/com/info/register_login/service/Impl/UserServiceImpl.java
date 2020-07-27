@@ -30,9 +30,6 @@ public class UserServiceImpl implements UserService {
         userMapper.deleteUserByUserId(user_id);
     }
 
-    /**
-     * 更新用户策略：先更新数据表，成功之后，删除原来的缓存，再更新缓存
-     */
     @Override
     public void updateUser(User user) {
         userMapper.updateUser(user);

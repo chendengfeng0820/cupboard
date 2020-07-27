@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.info.express.service.PostService;
 import com.info.pojo.*;
 import com.info.pojo.Package;
+import com.info.utils.SnowFlake;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +26,9 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private SnowFlake snowFlake;
+
     @RequestMapping("/post")
     public String post(@RequestBody JSONObject jsonObject){
         User user   = JSONObject.parseObject(jsonObject.toString(), User.class);
@@ -39,10 +43,12 @@ public class PostController {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         System.out.println(timestamp);
         Package packageInfo = new Package();
-        packageInfo.setPackage_createtime(timestamp)
+        long package_id = snowFlake.nextId();
+        packageInfo.setPackage_id(package_id)
+                   .setPackage_createtime(timestamp)
                    .setPackage_from(pack.getPackage_from())
                    .setPackage_to(pack.getPackage_to());
-        Long package_id = postService.insertPackage(packageInfo);
+        postService.insertPackage(packageInfo);
         User userInfo = postService.getUserInfo(user_id);
         postService.insertUser_Package(user_id,package_id);
 

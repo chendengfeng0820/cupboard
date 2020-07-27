@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface BoardUsingService {
 
-    public List available();
+    //查找数据库中状态为 可用柜子
+    public List<Board> available();
 
+    //查看柜子的位置
     public String getlocation(Long board_id);
 
 }

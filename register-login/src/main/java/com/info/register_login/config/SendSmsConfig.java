@@ -31,9 +31,6 @@ public class SendSmsConfig {
 	@Autowired
 	private CodeUtil codeUtil;
 
-	@Autowired
-	private SnowFlake snowFlake;
-
 	public String sendSms(String telephonenumber) {
 
 		//获取验证码code

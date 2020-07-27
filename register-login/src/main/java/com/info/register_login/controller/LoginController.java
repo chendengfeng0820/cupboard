@@ -26,6 +26,7 @@ public class LoginController {
         User user = JSON.parseObject(jsonObject.toString(), User.class);
 		String telephone = user.getUser_telephone();
 		String password = user.getUser_password();
+		//判断是否存在key 并且 value相等
 		if (redisUtil.hashKey(telephone)){
 			String passwordcode=String.valueOf(redisUtil.getHash(telephone,"password")) ;
 			if (password.equals(passwordcode)){

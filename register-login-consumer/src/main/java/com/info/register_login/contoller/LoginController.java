@@ -25,16 +25,11 @@ public class LoginController {
 
     public static final String REST_URL_PREFIX = "http://REGISTER-LOGIN";
 
-
-//	@RequestMapping("/findAll")
-//	public String getAll() {
-//		return restTemplate.getForObject(REST_URL_PREFIX+"/findAll",String.class);
-//	}
-
-    //	@RequestMapping("/login")
-//	public String login(@RequestBody JSONObject jsonObject) {
-//		return restTemplate.getForObject(REST_URL_PREFIX+"/login",String.class);
-//	}
+    /**
+     * feign
+     * @param jsonObject
+     * @return
+     */
     @RequestMapping("/login")
     public String login(@RequestBody JSONObject jsonObject) {
         return loginService.login(jsonObject);
@@ -45,5 +40,21 @@ public class LoginController {
     public String getAll1() {
         return loginService.getAll();
     }
+
+    /**
+     * restful
+     * @return
+     */
+	@RequestMapping("/findAll1")
+	public String getAll2() {
+		return restTemplate.getForObject(REST_URL_PREFIX+"/findAll",String.class);
+	}
+
+    	@RequestMapping("/login1")
+	public String login1(@RequestBody JSONObject jsonObject) {
+		return restTemplate.getForObject(REST_URL_PREFIX+"/login",String.class);
+	}
+
+
 
 }

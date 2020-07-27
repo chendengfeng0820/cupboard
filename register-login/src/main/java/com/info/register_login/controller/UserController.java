@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * @author: cdf
+ * @Description 用户信息redis缓存管理
  * @create: 2020-01-13 00:33
  **/
 @RestController

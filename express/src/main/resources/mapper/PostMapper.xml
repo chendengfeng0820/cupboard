@@ -4,9 +4,14 @@
 
 <mapper namespace="com.info.express.mapper.PostMapper">
 
-    <insert id="insertPackage" keyColumn="package_id" keyProperty="package_id" useGeneratedKeys="true">
-        insert into package (package_from, package_to, package_createtime) values (
-        #{package_from},#{package_to},#{package_createtime})
+    <!--<insert id="insertPackage" keyColumn="package_id" keyProperty="package_id" useGeneratedKeys="true">-->
+        <!--insert into package (package_from, package_to, package_createtime) values (-->
+        <!--#{package_from},#{package_to},#{package_createtime})-->
+    <!--</insert>-->
+
+    <insert id="insertPackage">
+        insert into package (package_id,package_from, package_to, package_createtime) values (
+        #{package_id},#{package_from},#{package_to},#{package_createtime})
     </insert>
 
     <select id="getUserInfo" resultType="com.info.pojo.User">

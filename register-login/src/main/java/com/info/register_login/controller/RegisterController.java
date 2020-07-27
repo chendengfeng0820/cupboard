@@ -31,12 +31,6 @@ import static org.bouncycastle.asn1.x500.style.RFC4519Style.telephoneNumber;
 public class RegisterController {
 
     @Autowired
-    private RedisUtil redisUtil;
-
-    @Autowired
-    private CodeUtil codeUtil;
-
-    @Autowired
     private SendSmsConfig sendSmsConfig;
 
 
@@ -45,6 +39,7 @@ public class RegisterController {
         User user = JSON.parseObject(jsonObject.toString(), User.class);
         System.out.println(user.getUser_telephone());
         String s = sendSmsConfig.sendSms(user.getUser_telephone());
+        //解析json  获取阿里云接口发送成功标志进行下一步操作
         JSONObject jsonObject1=JSON.parseObject(s);
         JSONObject jsonObject2=JSONObject.parseObject(jsonObject1.get("data").toString());
         String message = jsonObject2.get("Message").toString();
