@@ -7,11 +7,11 @@
     <modules>
         <module>express</module>
         <module>preserve</module>
-        <module>time-cost</module>
         <module>fast-mail</module>
         <module>eureka-7001</module>
         <module>eureka-7002</module>
         <module>eureka-7003</module>
+        <module>overbooking</module>
         <module>cupboard-api</module>
         <module>rabbitmq-send</module>
         <module>register-login</module>

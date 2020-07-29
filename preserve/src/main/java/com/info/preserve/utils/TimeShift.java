@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @ClassName TimeShift
- * @Description 将秒转换为分钟秒
+ * @Description 将秒转换为分钟秒(时间转换类)
  * @author: cdf
  * @Date: 2020-06-30 22:50
  **/
