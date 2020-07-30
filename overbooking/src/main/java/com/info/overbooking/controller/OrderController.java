@@ -89,6 +89,17 @@ public class OrderController {
     }
 
 
+    @RequestMapping("/over")
+    public String over(@RequestBody JSONObject jsonObject){
+        Board board = JSON.parseObject(jsonObject.toString(), Board.class);
+        User user = JSON.parseObject(jsonObject.toString(), User.class);
+        Long board_id = board.getBoard_id();
+        Long user_id = user.getUser_id();
+        redisUtil.select(1);
+        return "ok";
+    }
+
+
 
 
 
