@@ -8,7 +8,6 @@ import com.info.preserve.service.Impl.BoardUsingServiceImpl;
 import com.info.preserve.utils.TimeShift;
 import com.info.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
