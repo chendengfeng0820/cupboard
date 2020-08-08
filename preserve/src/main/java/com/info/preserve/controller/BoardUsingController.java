@@ -7,8 +7,12 @@ import com.info.pojo.User;
 import com.info.preserve.service.Impl.BoardUsingServiceImpl;
 import com.info.preserve.utils.TimeShift;
 import com.info.utils.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +31,7 @@ import java.util.stream.Collectors;
  * @Date: 2020-06-28 23:36
  **/
 @RestController
+@Slf4j
 public class BoardUsingController {
 
     @Autowired
@@ -37,6 +42,9 @@ public class BoardUsingController {
 
     @Autowired
     private BoardUsingServiceImpl boardUsingService;
+
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
     @RequestMapping("/boardusing")
     public String boardUsing(){
@@ -90,6 +98,22 @@ public class BoardUsingController {
         //获取预约剩余过期时间
         Long ttl = redisUtil.ttl(String.valueOf(board_id));
         return JSON.toJSONString(timeShift.conversion(ttl));
+    }
+
+    @GetMapping(value = "/payment/discovery")
+    public Object discovery()
+    {
+        List<String> services = discoveryClient.getServices();
+        for (String element : services) {
+            log.info("*****element: "+element);
+        }
+
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        for (ServiceInstance instance : instances) {
+            log.info(instance.getServiceId()+"\t"+instance.getHost()+"\t"+instance.getPort()+"\t"+instance.getUri());
+        }
+
+        return this.discoveryClient;
     }
 
 }

@@ -78,6 +78,7 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.11.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.11.0" level="project" />
+    <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.58" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.3.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.3.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.2.6.RELEASE" level="project" />
@@ -106,7 +107,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.2.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.2.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.2.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-amqp:2.2.8.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-amqp:2.3.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-messaging:5.2.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.amqp:spring-rabbit:2.2.6.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.rabbitmq:amqp-client:5.9.0" level="project" />
