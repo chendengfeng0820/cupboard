@@ -14,4 +14,6 @@ public interface BoardUsingMapper {
     //查看柜子的位置
     public String getlocation(Long board_id);
 
+    //查找柜子组的坐标
+    public String getCoordinate(Long board_id);
 }

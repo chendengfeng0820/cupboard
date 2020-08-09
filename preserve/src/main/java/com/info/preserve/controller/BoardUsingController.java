@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.info.pojo.Board;
 import com.info.pojo.User;
 import com.info.preserve.service.Impl.BoardUsingServiceImpl;
+import com.info.preserve.utils.JedisGeo;
 import com.info.preserve.utils.TimeShift;
 import com.info.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import redis.clients.jedis.GeoCoordinate;
+import redis.clients.jedis.GeoRadiusResponse;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -44,7 +47,10 @@ public class BoardUsingController {
     private BoardUsingServiceImpl boardUsingService;
 
     @Autowired
-    private DiscoveryClient discoveryClient;
+    private JedisGeo jedisGeo;
+
+//    @Autowired
+//    private DiscoveryClient discoveryClient;
 
     @RequestMapping("/boardusing")
     public String boardUsing(){
@@ -90,6 +96,27 @@ public class BoardUsingController {
 
     }
 
+    //查看与当前位置相近的柜子信息
+    @RequestMapping("/getCoordinate")
+    public String coordinate(@RequestBody JSONObject jsonObject){
+        User user = JSON.parseObject(jsonObject.toString(), User.class);
+        Long user_id = user.getUser_id();
+        String user_coordinate = user.getUser_coordinate();
+
+        //对经纬度进行操作
+        int comma = user_coordinate.indexOf(",");
+        String pre = user_coordinate.substring(0,comma);
+        String last = user_coordinate.substring(comma+1 ,user_coordinate.length()-1);
+        log.info("经度为：" + pre);    log.info("维度为：" + last);
+
+        jedisGeo.geoadd("china:city" ,new GeoCoordinate(Double.valueOf(pre),Double.valueOf(last)),String.valueOf(user_id));
+        List<GeoRadiusResponse> radius = jedisGeo.geoRadius("china:city", new GeoCoordinate(Double.valueOf(pre), Double.valueOf(last)), 5000);
+        log.info("这个距离内的位置" + radius);
+
+        return radius.toString();
+
+    }
+
     //查看预约柜子的剩余预约到期时间
     @RequestMapping("/ttl")
     public String ttl(@RequestBody JSONObject jsonObject){
@@ -100,20 +127,20 @@ public class BoardUsingController {
         return JSON.toJSONString(timeShift.conversion(ttl));
     }
 
-    @GetMapping(value = "/payment/discovery")
-    public Object discovery()
-    {
-        List<String> services = discoveryClient.getServices();
-        for (String element : services) {
-            log.info("*****element: "+element);
-        }
-
-        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-        for (ServiceInstance instance : instances) {
-            log.info(instance.getServiceId()+"\t"+instance.getHost()+"\t"+instance.getPort()+"\t"+instance.getUri());
-        }
-
-        return this.discoveryClient;
-    }
+//    @GetMapping(value = "/payment/discovery")
+//    public Object discovery()
+//    {
+//        List<String> services = discoveryClient.getServices();
+//        for (String element : services) {
+//            log.info("*****element: "+element);
+//        }
+//
+//        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+//        for (ServiceInstance instance : instances) {
+//            log.info(instance.getServiceId()+"\t"+instance.getHost()+"\t"+instance.getPort()+"\t"+instance.getUri());
+//        }
+//
+//        return this.discoveryClient;
+//    }
 
 }

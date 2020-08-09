@@ -11,4 +11,7 @@
         select location from boardlocation where board_id=#{board_id}
     </select>
 
+    <select id="getCoordinate" resultType="String">
+        select coordinate from boardlocation where board_id=#{board_id}
+    </select>
 </mapper>

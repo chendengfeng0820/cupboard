@@ -25,6 +25,8 @@ public class User implements Serializable {
 	private String user_password;
 	private String user_username;
 	private String user_faceinfo;
+	private String user_coordinate;
 	private Date user_createtime;
+
 
 }

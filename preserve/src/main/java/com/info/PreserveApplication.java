@@ -9,9 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableEurekaClient
-@ComponentScan(basePackages = {"com.info.*"})
-@EnableCircuitBreaker
-@EnableDiscoveryClient //服务发现
 public class PreserveApplication {
 
     public static void main(String[] args) {

@@ -8,7 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableEurekaClient
-@ComponentScan(basePackages = {"com.info.*"})
 public class RegisterLoginApplication {
 
     public static void main(String[] args) {

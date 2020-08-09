@@ -30,4 +30,9 @@ public class BoardUsingServiceImpl implements BoardUsingService {
     public String getlocation(Long board_id) {
         return boardUsingMapper.getlocation(board_id);
     }
+
+    @Override
+    public String getCoordinate(Long board_id) {
+        return boardUsingMapper.getCoordinate(board_id);
+    }
 }
