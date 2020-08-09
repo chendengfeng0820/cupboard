@@ -22,7 +22,6 @@ public class CodeUtil {
 		for (int i = 0; i < 4; i++) {
 			stringBuilder = stringBuilder.append(random.nextInt(9));
 		}
-		log.info("LTAI4FdXFKaU53RaBJaq8naC  LcQNfrwpgBjgoCis32GkGXIx3TImlv");
 		return JSON.toJSONString(stringBuilder);
 	}
 }
