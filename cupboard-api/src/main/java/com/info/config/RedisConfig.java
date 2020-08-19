@@ -29,7 +29,7 @@ public class RedisConfig {
 	 * @param redisConnectionFactory
 	 * @return
 	 */
-	@Bean(value = "redisTemplate1")
+	@Bean(value = "redisTemplate")
 	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) throws UnknownHostException {
 		RedisTemplate<String, Object> template = new RedisTemplate();
 		template.setConnectionFactory(redisConnectionFactory);
