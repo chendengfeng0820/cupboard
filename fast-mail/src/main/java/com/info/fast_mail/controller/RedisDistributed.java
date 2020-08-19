@@ -2,7 +2,9 @@ package com.info.fast_mail.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.info.fast_mail.service.DistributedService;
 import com.info.pojo.Board;
+import com.info.pojo.Courier;
 import com.info.pojo.Package;
 import com.info.pojo.User;
 import com.info.utils.SnowFlake;
@@ -31,17 +33,20 @@ public class RedisDistributed {
     private Redisson redisson1;
 
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private SnowFlake snowFlake;
 
     @Autowired
-    private SnowFlake snowFlake;
+    private DistributedService distributedService;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @RequestMapping("/deduct_stock")
     public String deductStock(@RequestBody JSONObject jsonObject) {
-        User user   = JSONObject.parseObject(jsonObject.toString(), User.class);
+        Courier courier   = JSONObject.parseObject(jsonObject.toString(), Courier.class);
         Package package1 = new Package();
         Long package_id = package1.getPackage_id();
-        Long user_id = user.getUser_id();
+        Long courier_id = courier.getCourier_id();
 
         String lockKKey = String.valueOf(snowFlake.nextId());
         RLock redisLock = redisson1.getLock(lockKKey);
@@ -62,9 +67,8 @@ public class RedisDistributed {
             if (stock > 0) {
                 int realStock = stock - 1;
                 stringRedisTemplate.opsForValue().set("stock", realStock + "");
-                System.out.println("扣减成功，已被" + user_id + "抢到");
-
-
+                System.out.println("扣减成功，已被" + courier_id+ "抢到");
+                distributedService.insertCourier_package(courier_id,package_id);
                 return "恭喜您，抢到了订单";
 
             } else {
