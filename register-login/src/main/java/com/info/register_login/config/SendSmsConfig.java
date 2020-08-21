@@ -12,6 +12,7 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.info.register_login.utils.CodeUtil;
 import com.info.utils.RedisUtil;
 import com.info.utils.SnowFlake;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.concurrent.TimeUnit;
@@ -23,6 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @Date: 2020-06-16 22:30
  **/
 @Component
+@Slf4j
 public class SendSmsConfig {
 
 	@Autowired
@@ -42,10 +44,10 @@ public class SendSmsConfig {
 			int times = (int) redisUtil.getHash(telephonenumber, "times");
 			if (times < 3) {
 				//覆盖上一次的验证码
-				redisUtil.hset(telephonenumber,"code",code);
+				redisUtil.hset(telephonenumber,"code",code,TimeUnit.SECONDS.toSeconds(300));
 				//此手机号验证码发送次数 incrby +1
 				redisUtil.haIncr(telephonenumber, "times", 1);
-			} else if(times==3){
+			} else if(times == 3){
 				//验证码发送次数等于三次，2小时时间限制
 				redisUtil.expire(telephonenumber,TimeUnit.HOURS.toHours(2));
 				return JSON.toJSONString("对不起，您已连续发送超过三次，请五分钟后再试");
@@ -54,6 +56,7 @@ public class SendSmsConfig {
 			//正常，设置验证码的过期时间
 			redisUtil.hset(telephonenumber, "code", code, TimeUnit.SECONDS.toSeconds(300));
 			redisUtil.hset(telephonenumber, "times", 0);
+			log.info("手机号：" + telephonenumber + ",验证码" + code);
 		}
 
 		/**

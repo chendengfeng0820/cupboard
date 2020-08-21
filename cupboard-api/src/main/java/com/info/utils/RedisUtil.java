@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtil {
 
 	@Autowired
-	@Qualifier(value = "redisTemplate1")
+	@Qualifier(value = "redisTemplate")
 	private RedisTemplate<String, Object> redisTemplate;
 
 

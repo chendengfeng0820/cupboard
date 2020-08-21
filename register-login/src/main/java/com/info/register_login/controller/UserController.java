@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.info.pojo.User;
 import com.info.register_login.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,24 +12,32 @@ import java.util.List;
 
 /**
  * @author: cdf
- * @Description 用户信息redis缓存管理
+ * @Description 用户后台管理
  * @create: 2020-01-13 00:33
  **/
 @RestController
+@Slf4j
 public class UserController {
 
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * 查询所有用户
+	 * @return
+	 */
 	@RequestMapping("/findAll")
 	public String findAll() {
 		List<User> users = userService.findAll();
-		System.out.println(users);
 		String json = JSON.toJSONString(users);
 		return json;
 	}
 
 
+	/**
+	 * 根据id查找用户
+	 * @return
+	 */
 	@RequestMapping("/findById")
 	public String findByNumber(@RequestBody JSONObject jsonObject) {
 		User user = JSON.parseObject(jsonObject.toString(), User.class);
@@ -38,6 +47,11 @@ public class UserController {
 		return Json;
 	}
 
+	/**
+	 * 添加用户
+	 * @param jsonObject
+	 * @return
+	 */
 	@RequestMapping("/saveUser")
 	public String saveUser(@RequestBody JSONObject jsonObject) {
 		User user = JSON.parseObject(jsonObject.toString(), User.class);
@@ -52,6 +66,11 @@ public class UserController {
 	}
 
 
+	/**
+	 * 根据id删除用户
+	 * @param jsonObject
+	 * @return
+	 */
 	@RequestMapping("/deleteUserById")
 	public String deleteUserById(@RequestBody JSONObject jsonObject) {
 		User user = JSON.parseObject(jsonObject.toString(), User.class);
@@ -61,6 +80,11 @@ public class UserController {
 	}
 
 
+	/**
+	 * 更新用户
+	 * @param jsonObject
+	 * @return
+	 */
 	@RequestMapping("/updateUser")
 	public String updateUser(@RequestBody JSONObject jsonObject) {
 		User user = JSON.parseObject(jsonObject.toString(), User.class);

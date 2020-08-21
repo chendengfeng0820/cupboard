@@ -4,6 +4,9 @@ import com.info.pojo.User;
 
 import java.util.List;
 
+/**
+ * 用户后台管理
+ */
 public interface UserService {
 	/**
 	 * 增加用户

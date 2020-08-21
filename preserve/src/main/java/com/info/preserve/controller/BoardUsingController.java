@@ -49,19 +49,20 @@ public class BoardUsingController {
     @Autowired
     private JedisGeo jedisGeo;
 
-//    @Autowired
-//    private DiscoveryClient discoveryClient;
-
+    /**
+     * 可使用的柜子
+     * @return
+     */
     @RequestMapping("/boardusing")
     public String boardUsing(){
 
-        //数据库中查到所有没有存放东西的柜子
+        //查到所有没有存放东西的柜子
         List<Board> availableList = boardUsingService.available();
         ArrayList<String> list = new ArrayList<>();
         for (Board board:availableList) {
             list.add(String.valueOf(board.getBoard_id()));
         }
-        System.out.println(list);
+        log.info("可存放的柜子：" + list);
 
         //切换redis redis所有的key 获取到被预订的柜子
         redisUtil.select(1);
@@ -69,11 +70,11 @@ public class BoardUsingController {
 
         //set转为list
         //ArrayList<String> keyslist = new ArrayList<>(keys);
-        System.out.println(keys);
+        log.info("预订的柜子：" + keys);
 
         //list与keylist差集  获取到所有没有被预订且空的柜子
         list.removeAll(keys);
-        System.out.println(list);
+        log.info("可存放的柜子：" + list);
         String result = JSON.toJSONString(list);
         return result;
     }
@@ -89,8 +90,10 @@ public class BoardUsingController {
         //预约柜子号存进redis，设置过期时间2小时
         redisUtil.set(String.valueOf(board_id),0,TimeUnit.HOURS.toSeconds(2));
         if (redisUtil.hashKey(String.valueOf(board_id))){
+            log.info("存放成功：" + board_id);
             return "subscribe success";
         }else {
+            log.info("存放失败：" + board_id );
             return "subscribe fail";
         }
 

@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
+/**
+ * 用户后台管理
+ */
 @Mapper
 @Repository
 public interface UserMapper {
