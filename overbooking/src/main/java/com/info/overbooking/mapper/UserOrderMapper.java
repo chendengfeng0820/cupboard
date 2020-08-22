@@ -6,9 +6,31 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
+
 @Mapper
 @Component
 public interface UserOrderMapper {
+
+    /**
+     * 插入结束时间
+     * @param timestamp
+     */
+    public void insertFinishTime(Timestamp timestamp);
+
+    /**
+     * userid查找orderid
+     * @param user_id
+     * @return
+     */
+    public Long getOrderId(Long user_id);
+
+    /**
+     * 订单创建时间
+     * @param order_id
+     * @return
+     */
+    public Timestamp getStartTime(Long order_id);
 
     public Long insertUserOrder(Order order);
 

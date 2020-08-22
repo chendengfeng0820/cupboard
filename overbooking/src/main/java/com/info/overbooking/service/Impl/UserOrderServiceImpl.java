@@ -7,6 +7,8 @@ import com.info.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+
 /**
  * @ClassName UserOrderServiceImpl
  * @Description TODO
@@ -32,6 +34,21 @@ public class UserOrderServiceImpl implements UserOrderService {
     @Override
     public Long insertUserTable(Long user_id, Long board_id) {
         return userOrderMapper.insertUserTable(user_id,board_id);
+    }
+
+    @Override
+    public void insertFinishTime(Timestamp timestamp) {
+        userOrderMapper.insertFinishTime(timestamp);
+    }
+
+    @Override
+    public Long getOrderId(Long user_id) {
+        return userOrderMapper.getOrderId(user_id);
+    }
+
+    @Override
+    public Timestamp getStartTime(Long order_id) {
+        return null;
     }
 
     @Override

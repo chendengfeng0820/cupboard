@@ -76,17 +76,18 @@ public class BoardUsingController {
     public String  subscribe(@RequestBody JSONObject jsonObject){
         Board board = JSON.parseObject(jsonObject.toString(), Board.class);
         User user   = JSONObject.parseObject(jsonObject.toString(), User.class);
-        Long board_id=board.getBoard_id();
+        Long board_id = board.getBoard_id();
+        Long user_id = user.getUser_id();
         //切换redis 1 数据库
         redisUtil.select(1);
 
         //预约柜子号存进redis，设置过期时间2小时
-        redisUtil.set(String.valueOf(board_id),0,TimeUnit.HOURS.toSeconds(2));
+        redisUtil.set(String.valueOf(board_id),String.valueOf(user_id),TimeUnit.HOURS.toSeconds(2));
         if (redisUtil.hashKey(String.valueOf(board_id))){
-            log.info("存放成功：" + board_id);
+            log.info("预订成功：" + board_id);
             return "subscribe success";
         }else {
-            log.info("存放失败：" + board_id );
+            log.info("预订失败：" + board_id );
             return "subscribe fail";
         }
 
@@ -104,17 +105,18 @@ public class BoardUsingController {
         String user_coordinate = user.getUser_coordinate();
 
         Jedis jedis = new Jedis();
-        //对经纬度进行操作
+        //对经纬度进行截取操作
         int comma = user_coordinate.indexOf(",");
         String pre = user_coordinate.substring(0,comma);
         String last = user_coordinate.substring(comma+1 ,user_coordinate.length()-1);
         log.info("经度为：" + pre);    log.info("纬度为：" + last);
-        //位置
-//        GeoCoordinate geoCoordinate = new GeoCoordinate(Double.valueOf(pre), Double.valueOf(last));
+        //GeoCoordinate geoCoordinate = new GeoCoordinate(Double.valueOf(pre), Double.valueOf(last));
+        //添加用户位置经纬度
         jedis.geoadd("china:city" , Double.valueOf(pre), Double.valueOf(last), String.valueOf(user_id));
+        //用户20km范围内所有的柜子组
         List<GeoRadiusResponse> georadius = jedis.georadius("china:city", Double.valueOf(pre), Double.valueOf(last), 20, GeoUnit.KM);
-//        List<GeoRadiusResponse> radius = jedisGeo.geoRadius("china:city", geoCoordinate, 5000);
         log.info("距离内的位置" + georadius);
+        //移除用户位置信息
         jedis.zrem("china:city",String.valueOf(user_id));
         return georadius.toString();
 
@@ -127,6 +129,7 @@ public class BoardUsingController {
         Long board_id = board.getBoard_id();
         //获取预约剩余过期时间
         Long ttl = redisUtil.ttl(String.valueOf(board_id));
+        log.info(board_id + "剩余时间：" + ttl);
         return JSON.toJSONString(timeShift.conversion(ttl));
     }
 

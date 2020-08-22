@@ -16,7 +16,6 @@
         <module>rabbitmq-send</module>
         <module>register-login</module>
         <module>rabbitmq-receive</module>
-        <module>preserve-consumer</module>
         <module>register-login-consumer</module>
     </modules>
 

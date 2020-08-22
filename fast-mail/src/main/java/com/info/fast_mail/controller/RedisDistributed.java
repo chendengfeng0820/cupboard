@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName RedisDistributed
- * @Description TODO
+ * @Description 分布式锁抢票
  * @author: cdf
  * @Date: 2020-08-19 03:51
  **/

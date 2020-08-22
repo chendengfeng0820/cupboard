@@ -5,6 +5,7 @@ import com.info.express.service.PostService;
 import com.info.pojo.*;
 import com.info.pojo.Package;
 import com.info.utils.SnowFlake;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,11 +17,12 @@ import java.util.HashMap;
 
 /**
  * @ClassName PostController
- * @Description TODO
+ * @Description 快递包裹
  * @author: cdf
  * @Date: 2020-07-18 18:44
  **/
 @RestController
+@Slf4j
 public class PostController {
 
     @Autowired
@@ -37,13 +39,14 @@ public class PostController {
         Long user_id = user.getUser_id();
         Long board_id =board.getBoard_id();
 
-        //包裹数据存入表
+        //包裹数据存入
         Board boardInfo = postService.getBoardInfo(board_id);
 //        Location location = boardInfo.getLocation();
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        System.out.println(timestamp);
         Package packageInfo = new Package();
+        //雪花生成package-id
         long package_id = snowFlake.nextId();
+        log.info("package_id:" + package_id);
         packageInfo.setPackage_id(package_id)
                    .setPackage_createtime(timestamp)
                    .setPackage_from(pack.getPackage_from())

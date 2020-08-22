@@ -8,14 +8,24 @@ import com.info.pojo.Board;
 import com.info.pojo.Cost;
 import com.info.pojo.Order;
 import com.info.pojo.User;
+import com.info.register_login.utils.CodeUtil;
 import com.info.service.preserve.BoardUsingService;
 import com.info.utils.RedisUtil;
+import com.info.utils.SnowFlake;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TimeZone;
 
 /**
  * @ClassName OrderController
@@ -24,6 +34,7 @@ import java.sql.Timestamp;
  * @Date: 2020-07-01 22:30
  **/
 @RestController
+@Slf4j
 public class OrderController {
 
     @Autowired
@@ -33,20 +44,28 @@ public class OrderController {
     private CostService costService;
 
     @Autowired
+    private SnowFlake snowFlake;
+
+    @Autowired
+    private CodeUtil codeUtil;
+
+    @Autowired
     private BoardUsingService boardUsingService;
 
     @Autowired
     private UserOrderService userOrderService;
 
+    /**
+     * 用户下单
+     * @param jsonObject
+     * @return
+     */
     @RequestMapping("/order")
     public String order(@RequestBody JSONObject jsonObject) {
-        System.out.println(boardUsingService.boardUsing());
         Board board = JSON.parseObject(jsonObject.toString(), Board.class);
         User user = JSON.parseObject(jsonObject.toString(), User.class);
         Long board_id = board.getBoard_id();
         Long user_id = user.getUser_id();
-        redisUtil.select(1);
-        redisUtil.set(String.valueOf(board_id),1);
 
         //修改boardlocation表所选柜子的状态
         costService.changeStatus(board_id);
@@ -64,19 +83,24 @@ public class OrderController {
         Order order = new Order();
         Cost cost = new Cost();
         cost.setCost_createtime(timestamp);
-        order.setOrder_telephone(user1.getUser_telephone())
+        long l1 = snowFlake.nextId();
+        long l2 = snowFlake.nextId();
+        order.setOrder_id(l1)
+                .setOrder_telephone(user1.getUser_telephone())
                 .setOrder_username(user1.getUser_username())
                 .setOrder_createtime(timestamp)
                 .setOrder_location(location);
 
-        //获取自增的orderid
-        Long order_id = userOrderService.insertUserOrder(order);
+        String code = codeUtil.generateCode();
+        redisUtil.select(2);
+        redisUtil.hset(String.valueOf(board_id),String.valueOf(user_id),code);
+        log.info("柜子号：" + board_id + "取件码：" + code);
 
-        //获取自增的costid
-        Long insertCostId = costService.insertCost(cost);
+        //orderid
+        Long order_id = l1; Long cost_id = l2;
 
         //userid costid插入到Order_Cost关联表
-        costService.insertOrderCost(user_id,insertCostId);
+        costService.insertOrderCost(user_id,cost_id);
         System.out.println(user_id);
 
         //userid orderid插入到user——order关联表
@@ -88,20 +112,56 @@ public class OrderController {
         return "ok";
     }
 
-
+    /**
+     * 结束显示时间花费相关信息
+     * @param jsonObject
+     * @return
+     */
     @RequestMapping("/over")
-    public String over(@RequestBody JSONObject jsonObject){
+    public String over(@RequestBody JSONObject jsonObject) throws ParseException {
         Board board = JSON.parseObject(jsonObject.toString(), Board.class);
         User user = JSON.parseObject(jsonObject.toString(), User.class);
         Long board_id = board.getBoard_id();
         Long user_id = user.getUser_id();
-        redisUtil.select(1);
-        return "ok";
+        Object o = null;
+        //结束时间并插入
+        Timestamp finishtime = new Timestamp(System.currentTimeMillis());
+        userOrderService.insertFinishTime(finishtime);
+
+        //创建时间获取
+        Long orderId = userOrderService.getOrderId(user_id);
+        Timestamp startTime = userOrderService.getStartTime(orderId);
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+        Date date1 = sdf.parse(String.valueOf(startTime));
+        Date date2 = sdf.parse(String.valueOf(finishtime));
+        long timeDifference = date1.getTime() - date2.getTime();
+        log.info("保管时间：" + timeDifference);
+
+        //调用花费计算服务进行计算
+
+        Map<String,Object> map = new HashMap<>();
+
+        map.put("用户：" , user_id);
+        map.put("柜子号：" , board_id);
+        map.put("保管时间", timeDifference);
+        map.put("花费：" , o);
+        return map.toString();
     }
 
-
-
-
-
+    /**
+     * 确认取包
+     * @param jsonObject
+     * @return
+     */
+    @RequestMapping("/confirmover")
+    public String confirmOver(@RequestBody JSONObject jsonObject){
+        Board board = JSON.parseObject(jsonObject.toString(), Board.class);
+        User user = JSON.parseObject(jsonObject.toString(), User.class);
+        Long board_id = board.getBoard_id();
+        Long user_id = user.getUser_id();
+        redisUtil.select(2);
+        String hash = (String) redisUtil.getHash(String.valueOf(board_id), String.valueOf(user_id));
+        return hash;
+    }
 
 }
