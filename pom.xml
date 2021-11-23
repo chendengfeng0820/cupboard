@@ -42,7 +42,7 @@
         <redisson.version>3.13.3</redisson.version>
         <fastjson.version>1.2.58</fastjson.version>
         <rabbitmq.version>2.3.0.RELEASE</rabbitmq.version>
-        <dashboard.version>2.2.3.RELEASE</dashboard.version>
+        <dashboard.version>2.2.10.RELEASE</dashboard.version>
         <openfigin.version>2.2.0.RELEASE</openfigin.version>
         <aliyun.message.version>4.0.3</aliyun.message.version>
         <spring-cloud.version>Hoxton.SR5</spring-cloud.version>
